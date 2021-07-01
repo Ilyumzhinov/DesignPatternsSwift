@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "container:"
+      name = "Creational">
+      <FileRef
+         location = "group:Patterns/AbstractFactory.playground">
+      </FileRef>
+      <FileRef
+         location = "group:Patterns/Prototype.playground">
+      </FileRef>
+      <FileRef
+         location = "group:Patterns/Builder.playground">
+      </FileRef>
+      <FileRef
+         location = "group:/Users/evergreen/Library/Mobile Documents/iCloud~com~apple~Playgrounds/Documents/Patterns/FactoryMethod.playground">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
+      name = "Structural">
+      <FileRef
+         location = "group:Patterns/Proxy.playground">
+      </FileRef>
+      <FileRef
+         location = "group:Patterns/Bridge.playground">
+      </FileRef>
+      <FileRef
+         location = "group:Patterns/Facade.playground">
+      </FileRef>
+      <FileRef
+         location = "group:Patterns/Composite.playground">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
+      name = "Behavioral">
+      <FileRef
+         location = "group:Patterns/ChainOfResponsibility.playground">
+      </FileRef>
+      <FileRef
+         location = "group:Patterns/Observer.playground">
+      </FileRef>
+   </Group>
+</Workspace>

@@ -19,19 +19,21 @@ func chain_handlers<Request, RequestResult>(
 
 // MARK: - Types
 typealias NumberRequest = (type: String, number1: Int, number2: Int)
-typealias NumberHandler = (NumberRequest) -> Int?
+enum NumberRequestError: Error { case cannotHandle }
+typealias NumberRequestResult = Result<Int, NumberRequestError>
+typealias NumberHandler = (NumberRequest) -> NumberRequestResult
 
 
 // MARK: - Handlers
-let addNumbersHandler: NumberHandler = { request in request.type == "add" ? request.number1 + request.number2 : nil },
-    subNumbersHandler: NumberHandler = { request in request.type == "sub" ? request.number1 - request.number2 : nil },
-    multNumbersHandler: NumberHandler = { request in request.type == "mult" ? request.number1 * request.number2 : nil },
-    divNumbersHandler: NumberHandler = { request in request.type == "div" ? request.number1 / request.number2 : nil }
+let addNumbersHandler: NumberHandler = { request in request.type == "add" ? .success(request.number1 + request.number2) : .failure(.cannotHandle) },
+    subNumbersHandler: NumberHandler = { request in request.type == "sub" ? .success(request.number1 - request.number2) : .failure(.cannotHandle) },
+    multNumbersHandler: NumberHandler = { request in request.type == "mult" ? .success(request.number1 * request.number2) : .failure(.cannotHandle) },
+    divNumbersHandler: NumberHandler = { request in request.type == "div" ? .success(request.number1 / request.number2) : .failure(.cannotHandle) }
 
 
 // MARK: - Main
 let numberHandlers = [addNumbersHandler, subNumbersHandler, multNumbersHandler, divNumbersHandler]
 let numberRequest: NumberRequest = ("div", 4, 2)
 
-let result = chain_handlers(numberHandlers, { $0 == nil })(numberRequest)
+let result = chain_handlers(numberHandlers, { $0 == .failure(.cannotHandle) })(numberRequest)
 result

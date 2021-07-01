@@ -76,49 +76,50 @@ extension AuthError {
 }
 
 // MARK: Handler type
-typealias AuthenticationHandler = (RequestType) -> AuthError?
+typealias RequestResult = Result<Bool, AuthError>
+typealias AuthenticationHandler = (RequestType) -> RequestResult
 
 
 // MARK: - Handlers
 let handler_login: AuthenticationHandler = { request in
     guard request.email?.isEmpty == false else {
-        return .emptyEmail
+        return .failure(.emptyEmail)
     }
     guard request.password?.isEmpty == false else {
-        return .emptyPassword
+        return .failure(.emptyPassword)
     }
     
-    return nil
+    return .success(true)
 }
 let handler_signUp: AuthenticationHandler = { request in
     let limit_passwordLength = 8
     
     guard request.email?.contains("@") == true else {
-        return .invalidEmail
+        return .failure(.invalidEmail)
     }
     guard (request.password?.count ?? 0) >= limit_passwordLength else {
-        return .invalidPassword
+        return .failure(.invalidPassword)
     }
     guard request.password == request.repeatedPassword else {
-        return .differentPasswords
+        return .failure(.differentPasswords)
     }
-    return nil
+    return .success(true)
 }
 let handler_location: AuthenticationHandler = { request in
     func isLocationEnabled() -> Bool { true }
     
     guard isLocationEnabled() else {
-        return .locationDisabled
+        return .failure(.locationDisabled)
     }
-    return nil
+    return .success(true)
 }
 let handler_notifiation: AuthenticationHandler = {request in
     func isNotificationsEnabled() -> Bool { true }
     
     guard isNotificationsEnabled() else {
-        return .notificationsDisabled
+        return .failure(.notificationsDisabled)
     }
-    return nil
+    return .success(true)
 }
 
 
@@ -127,9 +128,10 @@ let handler_notifiation: AuthenticationHandler = {request in
 let handlers_login = [handler_login, handler_location]
 let request_login = LoginRequest(email: "smth@gmail.com", password: "123HardPass")
 
-if let error = chain_handlers(handlers_login, { $0 == nil })(request_login) {
+if let resultError = chain_handlers(handlers_login, { $0 == .success(true) })(request_login),
+   case let .failure(error) = resultError {
     print("Login View Controller: something went wrong")
-    print("Login View Controller: Error -> " + (error?.errorDescription ?? ""))
+    print("Login View Controller: Error -> " + (error.errorDescription ?? ""))
 } else {
     print("Login View Controller: Preconditions are successfully validated")
 }
@@ -138,9 +140,10 @@ if let error = chain_handlers(handlers_login, { $0 == nil })(request_login) {
 let handlers_signUp = [handler_signUp, handler_location, handler_notifiation]
 let request_signUp = SignUpRequest(firstName: "Vasya", lastName: "Pupkin", email: "vasya.pupkin@gmail.com", password: "123HardPass", repeatedPassword: "123HardPass")
 
-if let error = chain_handlers(handlers_signUp, { $0 == nil })(request_signUp) {
+if let resultError = chain_handlers(handlers_signUp, { $0 == .success(true) })(request_signUp),
+   case let .failure(error) = resultError {
     print("SignUp View Controller: something went wrong")
-    print("SignUp View Controller: Error -> " + (error?.errorDescription ?? ""))
+    print("SignUp View Controller: Error -> " + (error.errorDescription ?? ""))
 } else {
     print("SignUp View Controller: Preconditions are successfully validated")
 }

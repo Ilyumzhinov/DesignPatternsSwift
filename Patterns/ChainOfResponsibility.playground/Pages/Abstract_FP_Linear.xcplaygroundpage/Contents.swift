@@ -5,6 +5,7 @@
 //:![Chain of Responsibility](ChainOfResponsibility.jpg)
 import Foundation
 
+/// Strictly speaking, I think, RequestResult should be of Result type, i.e. either return .success or .failure so that passIf() argument could define when to abort.
 typealias Handler<Request, RequestResult> = (Request) -> RequestResult
 
 func chain_handlers<Request, RequestResult>(
@@ -23,15 +24,18 @@ func chain_handlers<Request, RequestResult>(
 
 // MARK: - Main
 typealias AnimalRequest = String
-typealias AnimalRequestResult = String?
+enum AnimalRequestError: Error { case cannotHandle }
+typealias AnimalRequestResult = Result<String, AnimalRequestError>
 typealias AnimalHandler = (AnimalRequest) -> AnimalRequestResult
 
-let handler_monkey: AnimalHandler = { request in request == "Banana" ? ("Monkey: I'll eat the " + request + ".\n") : nil },
-    handler_squirrel: AnimalHandler = { request in request == "Nut" ? ("Squirrel: I'll eat the " + request + ".\n") : nil },
-    handler_dog: AnimalHandler = { request in request == "MeatBall" ? ("Dog: I'll eat the " + request + ".\n") : nil }
+let handler_monkey: AnimalHandler = { request in request == "Banana" ? .success("Monkey: I'll eat the " + request + ".\n") : .failure(.cannotHandle) },
+    handler_squirrel: AnimalHandler = { request in request == "Nut" ? .success("Squirrel: I'll eat the " + request + ".\n") : .failure(.cannotHandle) },
+    handler_dog: AnimalHandler = { request in request == "MeatBall" ? .success("Dog: I'll eat the " + request + ".\n") : .failure(.cannotHandle) }
 
 let animalHandlers = [handler_monkey, handler_squirrel, handler_dog]
 let food = ["Nut", "Banana", "Cup of coffee"]
 
-let result = food.map(chain_handlers(animalHandlers, { $0 == nil }))
+let result = food.map(chain_handlers(animalHandlers, { $0 == .failure(.cannotHandle) }))
 result
+
+

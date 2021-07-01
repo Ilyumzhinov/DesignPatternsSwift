@@ -26,7 +26,8 @@ enum AuthenticationError: Error {
     case notAuthenticated, tooManyAttempts
 }
 typealias AuthenticationRequest = (userCredentials: (isAuthenticated: Bool, isAdmin: Bool, ip: String), data: (userInput: String, dataRequested: Int))
-typealias AuthenticationHandler = (AuthenticationRequest) -> Result<Int?, AuthenticationError>
+typealias AuthenticationRequestResult = Result<Int?, AuthenticationError>
+typealias AuthenticationHandler = (AuthenticationRequest) -> AuthenticationRequestResult
 
 
 // MARK: - Handlers

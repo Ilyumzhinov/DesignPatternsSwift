@@ -37,6 +37,9 @@
       location = "container:"
       name = "Behavioral">
       <FileRef
+         location = "group:Patterns/Visitor.playground">
+      </FileRef>
+      <FileRef
          location = "group:Patterns/ChainOfResponsibility.playground">
       </FileRef>
       <FileRef

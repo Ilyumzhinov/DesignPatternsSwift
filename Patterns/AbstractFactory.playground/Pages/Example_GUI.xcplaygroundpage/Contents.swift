@@ -1,4 +1,4 @@
-//: Abstract Factory Patterb: Platform-independent GUI example.
+//: Abstract Factory Pattern: Platform-independent GUI example.
 //:
 //: Reference: https://refactoring.guru/design-patterns/abstract-factory
 import SwiftUI

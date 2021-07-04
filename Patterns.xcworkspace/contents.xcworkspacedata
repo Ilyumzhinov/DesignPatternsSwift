@@ -5,6 +5,9 @@
       location = "container:"
       name = "Creational">
       <FileRef
+         location = "group:Patterns/Singleton.playground">
+      </FileRef>
+      <FileRef
          location = "group:Patterns/AbstractFactory.playground">
       </FileRef>
       <FileRef

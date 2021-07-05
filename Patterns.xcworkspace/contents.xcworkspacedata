@@ -40,6 +40,9 @@
       location = "container:"
       name = "Behavioral">
       <FileRef
+         location = "group:Patterns/Command.playground">
+      </FileRef>
+      <FileRef
          location = "group:Patterns/Visitor.playground">
       </FileRef>
       <FileRef

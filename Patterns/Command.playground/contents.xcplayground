@@ -3,7 +3,8 @@
     <pages>
         <page name='Abstract_FP_Simple'/>
         <page name='Abstract_FP_Undo'/>
+        <page name='Abstract_OOP'/>
         <page name='Example_FP_Editor'/>
-        <page name='Example_FP_Game'/>
+        <page name='Example_FP_GameController'/>
     </pages>
 </playground>

@@ -1,10 +1,11 @@
 //: Command Pattern. Behavioral.
 //:
+//: Functional programming implementation. Without undoing operation.
+//:
 //: Reference: https://refactoring.guru/design-patterns/command, https://research.sylviastuurman.nl/wp-content/uploads/2019/11/REPLACING_PATTERNS.pdf
 //:
 //: ![Command](Command.jpg)
 import Foundation
-
 
 // MARK: - Commands
 typealias CommandFunction = () -> ()
@@ -38,24 +39,24 @@ class ReceiverA {
     var stateA: Int = 0
     
     // Receiver (context) commands
-    func action1() {
-        stateA = stateA + 1
+    func action1(_ param1: Int) {
+        stateA = stateA + param1
         print("ReceiverA action 1. New state: \(stateA)")
     }
-    func action2() {
-        stateA = stateA * 2
+    func action2(_ param1: Int) {
+        stateA = stateA * param1
         print("ReceiverA action 2. New state: \(stateA)")
     }
 }
 class ReceiverB {
     var stateB: String = ""
     // Receiver (context) commands
-    func action1() {
-        stateB = stateB + "hello"
+    func action1(_ param1: String) {
+        stateB = param1 + stateB
         print("ReceiverB action 1. New state: \(stateB)")
     }
-    func action2() {
-        stateB = stateB + "world"
+    func action2(_ param1: String) {
+        stateB = stateB + param1
         print("ReceiverB action 2. New state: \(stateB)")
     }
 }
@@ -68,17 +69,21 @@ class ReceiverB {
 let receiverA = ReceiverA(),
     receiverB = ReceiverB()
 
+// Create commands for Receiver A
+let commandA_recA: CommandFunction = { receiverA.action1(1) },
+    commandB_recA: CommandFunction = { receiverA.action2(2) }
+
 // Create invokers for Receiver A
-let invokerA_recA_cmd1 = InvokerA(command: receiverA.action1),
-    invokerA_recA_cmd2 = InvokerA(command: receiverA.action2),
-    invokerB_recA_cmd1 = InvokerB(command: receiverA.action1),
-    invokerB_recA_cmd2 = InvokerB(command: receiverA.action2)
+let invokerA_recA_cmd1 = InvokerA(command: commandA_recA)
+let invokerA_recA_cmd2 = InvokerA(command: commandB_recA)
+let invokerB_recA_cmd1 = InvokerB(command: commandA_recA)
+let invokerB_recA_cmd2 = InvokerB(command: commandB_recA)
 
 // Create invokers for Receiver B
-let invokerA_recB_cmd1 = InvokerA(command: receiverB.action1),
-    invokerA_recB_cmd2 = InvokerA(command: receiverB.action2),
-    invokerB_recB_cmd1 = InvokerB(command: receiverB.action1),
-    invokerB_recB_cmd2 = InvokerB(command: receiverB.action2)
+let invokerA_recB_cmd1 = InvokerA() { receiverB.action1("Hello") },
+    invokerA_recB_cmd2 = InvokerA() { receiverB.action2("World") },
+    invokerB_recB_cmd1 = InvokerB() { receiverB.action1("Hello") },
+    invokerB_recB_cmd2 = InvokerB() { receiverB.action2("World") }
 
 invokerA_recA_cmd1.execute()
 invokerA_recA_cmd2.execute()

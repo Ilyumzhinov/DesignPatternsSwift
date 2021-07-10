@@ -3,6 +3,7 @@
 //: Reference: https://refactoring.guru/design-patterns/state, https://www.youtube.com/watch?v=emQW0UNjgF4.
 //:
 //: ![State](State.jpg)
+// MARK: - Context
 class Context {
     let name: String
     var state: StateType

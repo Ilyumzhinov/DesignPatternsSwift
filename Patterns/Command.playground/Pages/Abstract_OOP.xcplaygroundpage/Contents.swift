@@ -2,7 +2,7 @@
 //:
 //: The classic OOP way.
 //:
-//: Reference: https://refactoring.guru/design-patterns/command, https://research.sylviastuurman.nl/wp-content/uploads/2019/11/REPLACING_PATTERNS.pdf
+//: Reference: https://refactoring.guru/design-patterns/command
 //:
 //: ![Command](CommandOOP.jpg)
 import Foundation
@@ -68,6 +68,7 @@ class Receiver {
         print("Receiver action 2. New state: \(state)")
     }
 }
+
 
 // MARK: - Main
 // Possible combinations: Receivers * Commands * Invokers

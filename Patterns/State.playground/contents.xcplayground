@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <playground version='6.0' target-platform='macos' display-mode='rendered' buildActiveScheme='true' importAppTypes='true'>
     <pages>
-        <page name='Abstract_FP_Simple'/>
-        <page name='Abstract_FP_Undo'/>
-        <page name='Example_FP_Editor'/>
-        <page name='Example_FP_Game'/>
+        <page name='Abstract'/>
+        <page name='Example_AudioPlayer'/>
     </pages>
 </playground>

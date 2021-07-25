@@ -24,6 +24,9 @@
       location = "container:"
       name = "Structural">
       <FileRef
+         location = "group:Patterns/Adapter.playground">
+      </FileRef>
+      <FileRef
          location = "group:Patterns/Proxy.playground">
       </FileRef>
       <FileRef

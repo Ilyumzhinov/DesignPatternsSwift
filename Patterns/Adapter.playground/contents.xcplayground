@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='macos' display-mode='rendered' buildActiveScheme='true' importAppTypes='true'>
+    <pages>
+        <page name='Abstract_Extension'/>
+        <page name='Abstract_Instance'/>
+        <page name='Example_JSON'/>
+    </pages>
+</playground>

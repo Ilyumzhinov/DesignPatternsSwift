@@ -16,7 +16,7 @@ Programming Design Patterns implemented in Swift as Xcode Playgrounds.
 
 [✅] Creational patterns
 
-[57%] Structural patterns
+[71%] Structural patterns
 
 [60%] Behavioral patterns
 
@@ -42,9 +42,11 @@ Programming Design Patterns implemented in Swift as Xcode Playgrounds.
 
 - 2 abstract, 1 example
 
-#### [57%] Structural patterns
+#### [71%] Structural patterns
 
-##### [X] Adapter
+##### [✅] Adapter
+
+- 2 abstract, 1 example
 
 ##### [✅] Bridge
 
